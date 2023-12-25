@@ -1,9 +1,13 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "./SocialLogin";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -12,6 +16,18 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+
+        toast.success("Logged in successfully!");
+        navigate(location?.state ? location.state : "/");
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Invalid email or password. Please try again.");
+      });
   };
   return (
     <div className="flex flex-col justify-center md:min-h-[700px] items-center py-4 md:py-0">
@@ -20,9 +36,7 @@ const Login = () => {
       </Helmet>
       <div className="flex flex-col md:max-w-2xl rounded-md py-2 px-10 bg-white shadow-xl text-gray-900">
         <div className="mb-2 text-center">
-          <p className="md:text-xl font-semibold">
-            Login
-          </p>
+          <p className="md:text-xl font-semibold">Login</p>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}

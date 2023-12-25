@@ -1,9 +1,14 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../Login/SocialLogin";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const { createUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -12,6 +17,13 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    createUser(data.email, data.password);
+    updateUserProfile(data.name).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      toast.success("User created successfully");
+      navigate("/");
+    });
   };
 
   return (
@@ -71,10 +83,19 @@ const SignUp = () => {
               <input
                 type="password"
                 {...register("password", {
-                  required: true,
-                  minLength: 6,
-                  maxLength: 20,
-                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "Password cannot exceed 20 characters",
+                  },
+                  pattern: {
+                    value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                    message: "Password must meet the specified criteria",
+                  },
                 })}
                 name="password"
                 autoComplete="new-password"
@@ -82,8 +103,8 @@ const SignUp = () => {
                 placeholder="*******"
                 className="w-full px-4 py-3 border rounded-md border-gray-300  text-gray-900"
               />
-              {errors.password?.type === "required" && (
-                <p className="text-red-500">Password is required</p>
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
               )}
             </div>
           </div>

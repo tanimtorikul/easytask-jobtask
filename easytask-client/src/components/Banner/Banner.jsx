@@ -19,7 +19,7 @@ const Banner = () => {
               Elevate your productivity with our cutting-edge task management solution. Seamlessly organize, prioritize, and collaborate to achieve unparalleled efficiency.
             </p>
             <Link
-              to='/dashboard'
+              to='/dashboard/tasks'
               className="btn bg-white text-blue-900 hover:bg-blue-700 hover:text-white px-6 py-3 rounded-full transition duration-300 ease-in-out"
             >
               Let's Explore
