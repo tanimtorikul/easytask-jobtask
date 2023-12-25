@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center md:min-h-[700px] items-center py-4 md:py-0">
       <Helmet>
-        <title>Login | GoTrip -Travel Agency</title>
+        <title>Login | EasyTask</title>
       </Helmet>
       <div className="flex flex-col md:max-w-2xl rounded-md py-2 px-10 bg-white shadow-xl text-gray-900">
         <div className="mb-2 text-center">

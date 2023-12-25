@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import DashboardSidebar from "../../components/shared/DashboardSidebar";
 import DashboardNavbar from "../../components/shared/DashboardNavbar/DashboardNavbar";
+import { Toaster } from "react-hot-toast";
 
 const DashboardLayout = () => {
   return (
@@ -12,6 +13,7 @@ const DashboardLayout = () => {
           <Outlet />
         </main>
       </div>
+      <Toaster/>
     </div>
   );
 };
