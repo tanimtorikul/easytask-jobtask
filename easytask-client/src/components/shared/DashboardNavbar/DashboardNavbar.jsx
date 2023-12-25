@@ -11,22 +11,23 @@ const DashboardNavbar = () => {
       .then(() => {
         toast.success("Logged out successfully!");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error(error);
+        toast.error("Logout failed. Please try again.");
+      });
   };
 
   return (
     <div className="navbar bg-base-100 border-b border-gray-300 py-6">
-      <div className="navbar-start">
-        <Link to="/" className="text-[#395CA7] font-bold text-2xl">
-          EasyTask
-        </Link>
-      </div>
       <div className="navbar-end">
-        <div className="dropdown dropdown-end">
+        <div className="dropdown ">
           {user ? (
             <>
+            
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                
                 <div className="w-10 rounded-full">
+                  
                   <img alt={user.email} src={user.photoURL} />
                 </div>
               </label>
@@ -34,9 +35,7 @@ const DashboardNavbar = () => {
                 tabIndex={0}
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
-                <li>
-                  <a className="justify-between">{user.displayName}</a>
-                </li>
+                
                 <li>
                   <a className="justify-between">{user.email}</a>
                 </li>
