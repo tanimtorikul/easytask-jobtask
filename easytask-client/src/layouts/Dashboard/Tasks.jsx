@@ -62,9 +62,11 @@ const Tasks = () => {
               <p className="text-gray-600">Priority: {task.priority}</p>
               <p className="text-gray-600">Description: {task.description}</p>
               <div className="mt-2 flex justify-evenly space-x-2">
-                <button className="flex items-center text-blue-500">
-                  <MdEdit size={24} />
-                </button>
+                <Link to={`/dashboard/updatetask/${task._id}`}>
+                  <button className="flex items-center text-blue-500">
+                    <MdEdit size={24} />
+                  </button>
+                </Link>
                 <button
                   className="flex items-center text-red-500"
                   onClick={() => handleDelete(task._id)}

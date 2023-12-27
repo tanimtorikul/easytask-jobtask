@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import Tasks from "../layouts/Dashboard/Tasks";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import CreateTask from "../layouts/Dashboard/CreateTask";
+import UpdateTask from "../layouts/Dashboard/UpdateTask";
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard", // Add a leading slash
+    path: "/dashboard",
     element: <DashboardLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -49,6 +50,16 @@ export const router = createBrowserRouter([
             <CreateTask />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "updateTask/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTask />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/tasks/${params.id}`),
       },
     ],
   },
