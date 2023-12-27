@@ -3,9 +3,12 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const CreateTask = () => {
   const navigate = useNavigate();
+  const {user} = useAuth()
+  console.log(user.email);
   const {
     register,
     handleSubmit,
@@ -14,16 +17,23 @@ const CreateTask = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:5000/tasks", data);
-
+      // Add user email to the task data
+      const taskData = {
+        ...data,
+        userEmail: user.email,
+      };
+  
+      const response = await axios.post("http://localhost:5000/tasks", taskData);
+  
       console.log("Task created successfully:", response.data);
       toast.success("Task created successfully");
-
+  
       navigate("/dashboard/tasks");
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   return (
     <div className=" py-4">
