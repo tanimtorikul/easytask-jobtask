@@ -4,6 +4,7 @@ import axios from "axios";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Tasks = () => {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ const Tasks = () => {
       try {
         if (user) {
           const response = await axios.get(
-            `http://localhost:5000/tasks?email=${user.email}`
+            `https://easytask-server.vercel.app/tasks?email=${user.email}`
           );
           setTasks(response.data);
         }
@@ -28,8 +29,9 @@ const Tasks = () => {
 
   const handleDelete = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/${taskId}`);
+      await axios.delete(`https://easytask-server.vercel.app/tasks/${taskId}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+      toast.success("Task deleted successfully");
     } catch (error) {
       console.error("Error deleting task:", error);
     }

@@ -24,7 +24,10 @@ const UpdateTask = () => {
         endDate: data.endDate,
       };
 
-      await axios.put(`http://localhost:5000/tasks/${_id}`, updatedTaskData);
+      await axios.put(
+        `https://easytask-server.vercel.app/tasks/${_id}`,
+        updatedTaskData
+      );
 
       toast.success("Task updated successfully");
 

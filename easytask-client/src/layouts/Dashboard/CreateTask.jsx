@@ -7,7 +7,7 @@ import useAuth from "../../hooks/useAuth";
 
 const CreateTask = () => {
   const navigate = useNavigate();
-  const {user} = useAuth()
+  const { user } = useAuth();
   console.log(user.email);
   const {
     register,
@@ -22,18 +22,20 @@ const CreateTask = () => {
         ...data,
         userEmail: user.email,
       };
-  
-      const response = await axios.post("http://localhost:5000/tasks", taskData);
-  
+
+      const response = await axios.post(
+        "https://easytask-server.vercel.app/tasks",
+        taskData
+      );
+
       console.log("Task created successfully:", response.data);
       toast.success("Task created successfully");
-  
+
       navigate("/dashboard/tasks");
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   return (
     <div className=" py-4">

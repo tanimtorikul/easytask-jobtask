@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tasks/${params.id}`),
+          fetch(`https://easytask-server.vercel.app/tasks/${params.id}`),
       },
     ],
   },
